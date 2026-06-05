@@ -2,7 +2,7 @@
 
 namespace GameTournamentDomain.Entities
 {
-    public class ChatRoom : BaseEntity<int>
+    public class ChatRoom 
     {
 
     }

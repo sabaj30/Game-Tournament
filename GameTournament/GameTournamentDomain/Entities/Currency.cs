@@ -2,7 +2,7 @@
 
 namespace GameTournamentDomain.Entities
 {
-    public class Currency : BaseEntity<int>
+    public class Currency 
     {
 
     }

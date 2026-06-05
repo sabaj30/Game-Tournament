@@ -2,7 +2,7 @@
 
 namespace GameTournamentDomain.Entities
 {
-    public class Region : BaseEntity<int>
+    public class Region 
     {
     }
 }
