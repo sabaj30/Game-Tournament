@@ -16,3 +16,4 @@ namespace GameTournamentDomain.Entities
         public ICollection<Match> SecondTeamMatches { get; set; } = new List<Match>();
         public ICollection<Match> WonMatches { get; set; } = new List<Match>();
     }
+}

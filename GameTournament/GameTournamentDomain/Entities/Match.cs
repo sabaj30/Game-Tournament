@@ -31,7 +31,14 @@ namespace GameTournamentDomain.Entities
         public MatchSlot? WinnerGoesToSlot { get; set; }
 
         public MatchStatus Status { get; set; } = MatchStatus.Scheduled;
+        public int? FirstTeamId { get; set; }
+        public Team? FirstTeam { get; set; }
 
+        public int? SecondTeamId { get; set; }
+        public Team? SecondTeam { get; set; }
+
+        public int? WinnerTeamId { get; set; }
+        public Team? WinnerTeam { get; set; }
     }
 
 
