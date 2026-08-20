@@ -18,7 +18,5 @@ namespace GameTournamentDomain.Entities
 
         public TournamentStatus Status { get; set; } = TournamentStatus.Draft;
 
-        public ICollection<TournamentParticipant> Participants { get; set; } = new List<TournamentParticipant>();
-        public ICollection<Match> Matches { get; set; } = new List<Match>();
     }
 }

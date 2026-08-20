@@ -11,9 +11,11 @@ namespace GameTournamentDomain.Entities
     {
 
         public int UserId { get; set; }
-        public string Nickname { get; set; } = default!;
+        public string Nickname { get; set; }
         public int TotalScore { get; set; }
 
         public User User { get; set; }
+        public ICollection<Team> Teams { get; set; } = new List<Team>();
+
     }
 }

@@ -2,8 +2,8 @@
 
 namespace GameTournamentDomain.Entities
 {
-    public class ChatRoom 
-    {
+    //public class ChatRoom 
+    //{
 
-    }
+    //}
 }

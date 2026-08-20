@@ -2,8 +2,8 @@
 
 namespace GameTournamentDomain.Entities
 {
-    public class  Wallet 
-    {
-    }
+    //public class  Wallet 
+    //{
+    //}
 
 }

@@ -10,10 +10,7 @@ namespace GameTournamentDomain.Entities
         public int TournamentId { get; set; }
         public Tournament Tournament { get; set; } = null!;
 
-        public ICollection<User> Users { get; set; } = new List<User>();
+        public ICollection<Player> Players { get; set; }
 
-        public ICollection<Match> FirstTeamMatches { get; set; } = new List<Match>();
-        public ICollection<Match> SecondTeamMatches { get; set; } = new List<Match>();
-        public ICollection<Match> WonMatches { get; set; } = new List<Match>();
     }
 }

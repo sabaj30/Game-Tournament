@@ -8,6 +8,6 @@ namespace GameTournamentDomain.Entities
         public string? Description { get; set; }
         public bool IsActive { get; set; } = true;
 
-        public ICollection<Tournament> Tournaments { get; set; } = new List<Tournament>();
+        public ICollection<Tournament> Tournaments { get; set; }
     }
 }

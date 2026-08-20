@@ -2,8 +2,8 @@
 
 namespace GameTournamentDomain.Entities
 {
-    public class Currency 
-    {
+    //public class Currency 
+    //{
 
-    }
+    //}
 }
