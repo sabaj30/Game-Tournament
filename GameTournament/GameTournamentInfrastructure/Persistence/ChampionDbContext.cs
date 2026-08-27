@@ -15,8 +15,7 @@ namespace GameTournamentInfrastructure.Persistence
         public DbSet<Team> Teams => Set<Team>();
         public DbSet<Game> Games => Set<Game>();
         public DbSet<Tournament> Tournaments => Set<Tournament>();
-        public DbSet<Admin> Admins => Set<Admin>();
-        public DbSet<User> Users => Set<User>();
+
         //public DbSet<ChatRoom> ChatRooms => Set<ChatRoom>();
        // public DbSet<Currency> Currency => Set<Currency>();
         //public DbSet<Wallet> Wallets => Set<Wallet>();
