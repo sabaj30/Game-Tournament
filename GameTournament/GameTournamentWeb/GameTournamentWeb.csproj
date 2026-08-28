@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GameTournamentApplication\GameTournamentApplication.csproj" />
     <ProjectReference Include="..\GameTournamentInfrastructure\GameTournamentInfrastructure.csproj" />
   </ItemGroup>
 
