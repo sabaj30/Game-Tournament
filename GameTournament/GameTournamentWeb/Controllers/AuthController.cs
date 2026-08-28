@@ -1,4 +1,5 @@
-﻿using GameTournamentApplication.Services.AuthServices;
+﻿using Azure.Core;
+using GameTournamentApplication.Services.AuthServices;
 using GameTournamentApplication.Services.AuthServices.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +11,9 @@ namespace GameTournamentWeb.Controllers
         {
             private readonly IAuthService _authService;
 
-            public AuthController(IAuthService authService)
+        public string? AccessToken { get; private set; }
+
+        public AuthController(IAuthService authService)
             {
                 _authService = authService;
             }
@@ -41,7 +44,10 @@ namespace GameTournamentWeb.Controllers
                 return Unauthorized(result.Errors);
             }
 
-            return Ok();
+            return Ok
+                (
+                AccessToken = result.Value
+                );
         }
     }
 }

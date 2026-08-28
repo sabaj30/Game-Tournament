@@ -1,6 +1,7 @@
 ﻿using GameTournamentApplication.Common.Errors;
 using GameTournamentApplication.Common.Results;
 using GameTournamentApplication.Services.AuthServices.DTOs;
+using GameTournamentApplication.Services.JwtServices;
 using GameTournamentDomain.Entities;
 using GameTournamentInfrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
@@ -13,13 +14,18 @@ namespace GameTournamentApplication.Services.AuthServices
 
         private readonly ChampionDbContext _championDbContext;
         private readonly IPasswordHasher<User> _passwordHasher;
-        public AuthService(ChampionDbContext championDbContext, IPasswordHasher<User> passwordHasher)
+        private readonly IJwtService _jwtService;
+        public AuthService(
+            ChampionDbContext championDbContext, 
+            IPasswordHasher<User> passwordHasher, 
+            IJwtService jwtService)
         {
             _championDbContext = championDbContext;
             _passwordHasher = passwordHasher;
+            _jwtService = jwtService;
         }
 
-        public async Task<Result> AuthenticateUserAsync(string username, string password)
+        public async Task<Result<string>> AuthenticateUserAsync(string username, string password)
         {
             var user = await _championDbContext.Users
                 .AsNoTracking()
@@ -27,17 +33,20 @@ namespace GameTournamentApplication.Services.AuthServices
 
             if (user == null) 
             {
-                return Result.Failure(Error.Validation("نام کاربری یا رمز عبور اشتباه است"));
+                return Result<string>.Failure(Error.Validation("نام کاربری یا رمز عبور اشتباه است"));
             }
 
             var verifyResult = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, password);
 
             if (verifyResult == PasswordVerificationResult.Failed)
             {
-                return Result.Failure(Error.Validation("نام کاربری یا رمز عبور اشتباه است"));
+                return Result<string>.Failure(Error.Validation("نام کاربری یا رمز عبور اشتباه است"));
             }
 
-            return Result.Success();
+            var token = _jwtService.GenerateToken(user);
+
+            return Result<string>.Success(token);
+
         }
 
         public async Task<Result> RegisterUserAsync(RegisterRequest request)
