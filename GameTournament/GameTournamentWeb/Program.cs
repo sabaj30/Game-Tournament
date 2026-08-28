@@ -1,5 +1,8 @@
+using GameTournamentApplication.Services.AuthServices;
+using GameTournamentDomain.Entities;
 using GameTournamentInfrastructure.Persistence;
 using GameTournamentWeb.ExceptionHandling;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +14,9 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<ChampionDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

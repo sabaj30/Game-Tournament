@@ -12,8 +12,10 @@ namespace GameTournamentDomain.Entities
 
         public string Nickname { get; set; }
         public int TotalScore { get; set; }
+        public int UserId { get; set; }
 
+
+        public User User { get; set; }
         public ICollection<Team> Teams { get; set; } = new List<Team>();
-
     }
 }

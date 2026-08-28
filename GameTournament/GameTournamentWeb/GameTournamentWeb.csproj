@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Consts\" />
     <Folder Include="Jobs\" />
   </ItemGroup>

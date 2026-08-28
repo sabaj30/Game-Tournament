@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GameTournamentApplication.Common.Results;
+using GameTournamentApplication.Services.AuthServices.DTOs;
 
 namespace GameTournamentApplication.Services.AuthServices
 {
     public interface IAuthService
     {
-        
+        Task<Result> AuthenticateUserAsync(string username, string password);
+        Task<Result> RegisterUserAsync(RegisterRequest request);
+
     }
 }
