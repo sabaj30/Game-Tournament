@@ -15,7 +15,7 @@ namespace GameTournamentApplication.Services.JwtServices
             _configuration = configuration;
         }
 
-        public string GenerateToken(User user)
+        public string GenerateToken(User user, CancellationToken cancellationToken)
         {
             var claims = new List<Claim>
             {
@@ -29,6 +29,12 @@ namespace GameTournamentApplication.Services.JwtServices
                 (
                     ClaimTypes.Name,
                     user.UserName
+                ),
+
+                new Claim
+                (
+                    ClaimTypes.Role,
+                    user.Role.ToString()
                 )
             };
 

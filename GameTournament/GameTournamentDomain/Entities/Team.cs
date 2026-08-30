@@ -10,7 +10,7 @@ namespace GameTournamentDomain.Entities
         public int TournamentId { get; set; }
         public Tournament Tournament { get; set; } = null!;
 
-        public ICollection<Player> Players { get; set; }
+        public ICollection<Player> Players { get; set; } = [];
 
     }
 }

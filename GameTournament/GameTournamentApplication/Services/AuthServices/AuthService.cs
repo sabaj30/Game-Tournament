@@ -25,7 +25,7 @@ namespace GameTournamentApplication.Services.AuthServices
             _jwtService = jwtService;
         }
 
-        public async Task<Result<string>> AuthenticateUserAsync(string username, string password)
+        public async Task<Result<string>> AuthenticateUserAsync(string username, string password, CancellationToken cancellationToken)
         {
             var user = await _championDbContext.Users
                 .AsNoTracking()
@@ -43,13 +43,13 @@ namespace GameTournamentApplication.Services.AuthServices
                 return Result<string>.Failure(Error.Validation("نام کاربری یا رمز عبور اشتباه است"));
             }
 
-            var token = _jwtService.GenerateToken(user);
+            var token = _jwtService.GenerateToken(user, cancellationToken);
 
             return Result<string>.Success(token);
 
         }
 
-        public async Task<Result> RegisterUserAsync(RegisterRequest request)
+        public async Task<Result> RegisterUserAsync(RegisterRequest request, CancellationToken cancellationToken)
         {
             var userExists = await _championDbContext.Users
                 .AnyAsync(x => x.UserName == request.UserName);
