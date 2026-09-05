@@ -1,4 +1,5 @@
 using GameTournamentApplication.Services.AuthServices;
+using GameTournamentApplication.Services.GameServices;
 using GameTournamentApplication.Services.JwtServices;
 using GameTournamentDomain.Entities;
 using GameTournamentInfrastructure.Persistence;
@@ -21,6 +22,7 @@ builder.Services.AddDbContext<ChampionDbContext>(options =>
 
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 
 builder.Services.AddEndpointsApiExplorer();

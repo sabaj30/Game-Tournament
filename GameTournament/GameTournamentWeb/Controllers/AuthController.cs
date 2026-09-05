@@ -1,5 +1,7 @@
 ﻿using GameTournamentApplication.Services.AuthServices;
 using GameTournamentApplication.Services.AuthServices.DTOs;
+using GameTournamentApplication.Services.GameServices;
+using GameTournamentApplication.Services.GameServices.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 
@@ -7,21 +9,20 @@ namespace GameTournamentWeb.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AuthController : ControllerBase
+    public class GameController : ControllerBase
     {
-        private readonly IAuthService _authService;
+        private readonly IGameService _gameService;
 
-        public string? AccessToken { get; private set; }
-
-        public AuthController(IAuthService authService)
+        public GameController(IGameService gameService)
         {
-            _authService = authService;
+            _gameService = gameService;
         }
 
-        [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterRequest request, CancellationToken cancellationToken)
+
+        [HttpPost]
+        public async Task<IActionResult> AddGame([FromBody] CreateGameDTO createGameDTO,CancellationToken cancellationToken)
         {
-            var result = await _authService.RegisterUserAsync(request, cancellationToken);
+            var result = await _gameService.AddGameAsync(createGameDTO, cancellationToken);
 
             if (!result.IsSuccess)
             {
@@ -32,23 +33,65 @@ namespace GameTournamentWeb.Controllers
         }
 
 
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequest request, CancellationToken cancellationToken)
+        [HttpGet]
+        public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
-            var result = await _authService.AuthenticateUserAsync(
-                request.UserName,
-                request.Password,
+            var result = await _gameService.GetAllAsync(cancellationToken);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Errors);
+            }
+
+            return Ok(result.Value);
+        }
+
+
+        [HttpGet("{gameId:int}")]
+        public async Task<IActionResult> GetById(int gameId, CancellationToken cancellationToken)
+        {
+            var result = await _gameService.GetByIdAsync(gameId, cancellationToken);
+
+            if (!result.IsSuccess)
+            {
+                return NotFound(result.Errors);
+            }
+
+            return Ok(result.Value);
+        }
+
+
+        [HttpPut("{gameId:int}")]
+        public async Task<IActionResult> UpdateGame(int gameId, [FromBody] UpdateGameDTO updateGameDTO,CancellationToken cancellationToken)
+        {
+            var result = await _gameService.UpdateGameAsync(
+                updateGameDTO,
+                gameId,
                 cancellationToken);
 
             if (!result.IsSuccess)
             {
-                return Unauthorized(result.Errors);
+                return BadRequest(result.Errors);
             }
 
-            return Ok
-                (
-                AccessToken = result.Value
-                );
+            return Ok();
+        }
+
+
+        [HttpDelete("{gameId:int}")]
+        public async Task<IActionResult> DeleteGame(int gameId, CancellationToken cancellationToken)
+        {
+            var result = await _gameService.DeleteGameAsync(
+                gameId,
+                cancellationToken);
+
+            if (!result.IsSuccess)
+            {
+                return NotFound(result.Errors);
+            }
+
+            return Ok();
         }
     }
+
 }
