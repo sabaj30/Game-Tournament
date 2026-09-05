@@ -3,6 +3,7 @@ using GameTournamentApplication.Services.GameServices;
 using GameTournamentApplication.Services.JwtServices;
 using GameTournamentDomain.Entities;
 using GameTournamentInfrastructure.Persistence;
+using GameTournamentInfrastructure.Persistence.Seeders;
 using GameTournamentWeb.ExceptionHandling;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -24,6 +25,8 @@ builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<AdminSeed>();
+builder.Services.AddScoped<PasswordHasher<User>>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -52,7 +55,7 @@ builder.Services
 
 var app = builder.Build();
 
-
+await app.SeedDataAsync();
 
 app.UseExceptionHandler();
 
